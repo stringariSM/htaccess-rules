@@ -47,3 +47,8 @@ RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 '
+
+git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT {commit id} | xargs tar -rf mytarfile.tar
+
+
+git archive -o update.zip HEAD $(git diff --name-only COMMIT~ COMMIT)
