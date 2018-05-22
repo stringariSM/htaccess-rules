@@ -1,0 +1,27 @@
+#Se estiver num server dentro de um subdiretório, deve fica dentro dele, dentro da pasta /2018, por exemplo
+
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?/$1 [L]
+
+
+#Na raiz, fora do subdiretório /2018 deve fica este trecho
+
+Options +FollowSymlinks -MultiViews -Indexes
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+# URL com o nome do diretório
+RewriteCond %{REQUEST_URI}  ^/?$        [NC]
+RewriteCond %{REQUEST_URI}  !index\.php [NC]
+RewriteRule .*  /nome_da_pasta/  [NC,L]
+
+# URL sem o nome do diretório
+RewriteCond %{REQUEST_URI}  !^/nome_da_pasta     [NC]
+RewriteRule ^(.+)  /nome_da_pasta/$1             [NC,L]
