@@ -1,0 +1,9 @@
+RewriteEngine on
+RewriteBase /
+
+
+#Força o www com https (deve ficar na raiz)
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
+RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
